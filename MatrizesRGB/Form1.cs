@@ -144,7 +144,54 @@ namespace MatrizesRGB
             salvarImg(pictureBoxSaida1);
         }
 
+        private Bitmap subtrair(Bitmap imagemEntrada, Bitmap imagemSaida)
+        {
+            Bitmap imgA = new Bitmap(imagemEntrada);
+            Bitmap imgB = new Bitmap(imagemSaida);
 
+            if (imgA.Width != imgB.Width || imgA.Height != imgB.Height)
+            {
+                MessageBox.Show("As imagens devem ter o mesmo tamanho", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            else
+            {
+                Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
+                for (int i = 0; i < imgA.Width; i++)
+                {
+                    for (int j = 0; j < imgA.Height; j++)
+                    {
+                        Color pixelA = imgA.GetPixel(i, j);
+                        Color pixelB = imgB.GetPixel(i, j);
+
+                        int finalR = pixelA.R - pixelB.R;
+                        int finalG = pixelA.G - pixelB.G;
+                        int finalB = pixelA.B - pixelB.B;
+
+                        if (finalR < 0)
+                        {
+                            finalR = 0;
+                        }
+
+                        if (finalG < 0)
+                        {
+                            finalG = 0;
+                        }
+
+                        if (finalB < 0)
+                        {
+                            finalB = 0;
+                        }
+
+                        Color cor = Color.FromArgb(255, finalR, finalG, finalB);
+
+                        imgC.SetPixel(i, j, cor);
+                    }
+                }
+
+                return imgC;
+            }
+        }
 
 
 
@@ -952,9 +999,8 @@ namespace MatrizesRGB
             
         }
 
-        private void Dilatacao(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
+        private Bitmap Dilatacao(Bitmap imagemEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
         {
-            Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
             int largura = imagemEntrada.Width;
             int altura = imagemEntrada.Height;
 
@@ -1033,11 +1079,12 @@ namespace MatrizesRGB
                 }
             }
             pictureSaida.Image = imagemSaida;
+            return imagemSaida;
         }
 
-        private void Erosao(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
+        private Bitmap Erosao(Bitmap imagemEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
         {
-            Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
+            
             int largura = imagemEntrada.Width;
             int altura = imagemEntrada.Height;
 
@@ -1119,9 +1166,39 @@ namespace MatrizesRGB
                             imagemSaida.SetPixel(x, y, Color.White);
                     }
                 }
-
-                pictureSaida.Image = imagemSaida;
             }
+            pictureSaida.Image = imagemSaida;
+            return imagemSaida;
+        }
+
+        private void Abertura(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
+        {
+            Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
+
+            Bitmap imagemErosao = Erosao(imagemEntrada, pictureSaida, tipoElemento, valorCombo);
+            Bitmap imagemAbertura = Dilatacao(imagemErosao, pictureSaida, tipoElemento, valorCombo);
+
+            pictureSaida.Image = imagemAbertura;
+        }
+
+        private void Fechamento(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
+        {
+            Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
+
+            Bitmap imagemDilatacao = Dilatacao(imagemEntrada, pictureSaida, tipoElemento, valorCombo);
+            Bitmap imagemFechamento = Erosao(imagemDilatacao, pictureSaida, tipoElemento, valorCombo);
+
+            pictureSaida.Image = imagemFechamento;
+        }
+
+        private void Contorno(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
+        {
+            Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
+
+            Bitmap imagemErosao = Erosao(imagemEntrada, pictureSaida, tipoElemento, valorCombo);
+            Bitmap imagemContorno = subtrair(imagemEntrada, imagemErosao);
+
+            pictureSaida.Image = imagemContorno;
         }
         private void Tela1_btnAddImg_Click(object sender, EventArgs e)
         {
@@ -1322,6 +1399,7 @@ namespace MatrizesRGB
 
         private void Tela1_btnDilatacao_Click(object sender, EventArgs e)
         {
+            Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
             string valorCombo = comboTamanho.Text;
 
@@ -1338,11 +1416,12 @@ namespace MatrizesRGB
             {
                 valorEntrada = 3;
             }
-            Dilatacao(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
+            Dilatacao(imagemEntrada, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
 
         private void Tela1_btnErosao_Click(object sender, EventArgs e)
         {
+            Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
             string valorCombo = comboTamanho.Text;
 
@@ -1359,7 +1438,73 @@ namespace MatrizesRGB
             {
                 valorEntrada = 3;
             }
-            Erosao(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
+            Erosao(imagemEntrada, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
+        }
+
+        private void Tela1_btnAbertura_Click(object sender, EventArgs e)
+        {
+            Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
+            string tipoElemento = comboTipo.Text;
+            string valorCombo = comboTamanho.Text;
+
+            int valorEntrada = 3;
+            if (valorCombo == "5x5")
+            {
+                valorEntrada = 5;
+            }
+            else if (valorCombo == "7x7")
+            {
+                valorEntrada = 7;
+            }
+            else
+            {
+                valorEntrada = 3;
+            }
+            Abertura(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
+        }
+
+        private void Tela1_btnFechamento_Click(object sender, EventArgs e)
+        {
+            Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
+            string tipoElemento = comboTipo.Text;
+            string valorCombo = comboTamanho.Text;
+
+            int valorEntrada = 3;
+            if (valorCombo == "5x5")
+            {
+                valorEntrada = 5;
+            }
+            else if (valorCombo == "7x7")
+            {
+                valorEntrada = 7;
+            }
+            else
+            {
+                valorEntrada = 3;
+            }
+            Fechamento(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
+        }
+
+        private void Tela1_btnContorno_Click(object sender, EventArgs e)
+        {
+            Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
+            string tipoElemento = comboTipo.Text;
+            string valorCombo = comboTamanho.Text;
+
+            int valorEntrada = 3;
+            if (valorCombo == "5x5")
+            {
+                valorEntrada = 5;
+            }
+            else if (valorCombo == "7x7")
+            {
+                valorEntrada = 7;
+            }
+            else
+            {
+                valorEntrada = 3;
+            }
+            Contorno(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
         /*----------------------------------------------------------------------------------------------------------*/
 

@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
@@ -41,6 +41,13 @@
             this.Tela1_chartHistogramaPronto = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Tela1_btnReset = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboTamanho = new System.Windows.Forms.ComboBox();
+            this.comboTipo = new System.Windows.Forms.ComboBox();
+            this.Tela1_btnContorno = new System.Windows.Forms.Button();
+            this.Tela1_btnFechamento = new System.Windows.Forms.Button();
+            this.Tela1_btnAbertura = new System.Windows.Forms.Button();
+            this.Tela1_btnDilatacao = new System.Windows.Forms.Button();
+            this.Tela1_btnErosao = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.Tela1_comboOrdem = new System.Windows.Forms.ComboBox();
             this.Tela1_btnOrdem = new System.Windows.Forms.Button();
@@ -113,13 +120,6 @@
             this.TelaBordas_btnAdd = new System.Windows.Forms.Button();
             this.TelaBordas_pictureBoxAdd = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.Tela1_btnErosao = new System.Windows.Forms.Button();
-            this.Tela1_btnDilatacao = new System.Windows.Forms.Button();
-            this.Tela1_btnAbertura = new System.Windows.Forms.Button();
-            this.Tela1_btnFechamento = new System.Windows.Forms.Button();
-            this.Tela1_btnContorno = new System.Windows.Forms.Button();
-            this.comboTipo = new System.Windows.Forms.ComboBox();
-            this.comboTamanho = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tela1_chartHistogramaNormal)).BeginInit();
@@ -189,32 +189,32 @@
             // 
             // Tela1_chartHistogramaNormal
             // 
-            chartArea5.Name = "ChartArea1";
-            this.Tela1_chartHistogramaNormal.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.Tela1_chartHistogramaNormal.Legends.Add(legend5);
+            chartArea3.Name = "ChartArea1";
+            this.Tela1_chartHistogramaNormal.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.Tela1_chartHistogramaNormal.Legends.Add(legend3);
             this.Tela1_chartHistogramaNormal.Location = new System.Drawing.Point(24, 475);
             this.Tela1_chartHistogramaNormal.Name = "Tela1_chartHistogramaNormal";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.Tela1_chartHistogramaNormal.Series.Add(series5);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.Tela1_chartHistogramaNormal.Series.Add(series3);
             this.Tela1_chartHistogramaNormal.Size = new System.Drawing.Size(792, 253);
             this.Tela1_chartHistogramaNormal.TabIndex = 23;
             this.Tela1_chartHistogramaNormal.Text = "Tela1_chartHistogramaNormal";
             // 
             // Tela1_chartHistogramaPronto
             // 
-            chartArea6.Name = "ChartArea1";
-            this.Tela1_chartHistogramaPronto.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.Tela1_chartHistogramaPronto.Legends.Add(legend6);
+            chartArea4.Name = "ChartArea1";
+            this.Tela1_chartHistogramaPronto.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.Tela1_chartHistogramaPronto.Legends.Add(legend4);
             this.Tela1_chartHistogramaPronto.Location = new System.Drawing.Point(850, 475);
             this.Tela1_chartHistogramaPronto.Name = "Tela1_chartHistogramaPronto";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.Tela1_chartHistogramaPronto.Series.Add(series6);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.Tela1_chartHistogramaPronto.Series.Add(series4);
             this.Tela1_chartHistogramaPronto.Size = new System.Drawing.Size(792, 253);
             this.Tela1_chartHistogramaPronto.TabIndex = 22;
             this.Tela1_chartHistogramaPronto.Text = "Tela1_chartHistogramaPronto";
@@ -253,6 +253,81 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(663, 448);
             this.panel1.TabIndex = 20;
+            // 
+            // comboTamanho
+            // 
+            this.comboTamanho.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTamanho.FormattingEnabled = true;
+            this.comboTamanho.Items.AddRange(new object[] {
+            "3x3",
+            "5x5",
+            "7x7"});
+            this.comboTamanho.Location = new System.Drawing.Point(489, 100);
+            this.comboTamanho.Name = "comboTamanho";
+            this.comboTamanho.Size = new System.Drawing.Size(103, 24);
+            this.comboTamanho.TabIndex = 26;
+            // 
+            // comboTipo
+            // 
+            this.comboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTipo.FormattingEnabled = true;
+            this.comboTipo.Items.AddRange(new object[] {
+            "Quadrado",
+            "Cruz"});
+            this.comboTipo.Location = new System.Drawing.Point(489, 70);
+            this.comboTipo.Name = "comboTipo";
+            this.comboTipo.Size = new System.Drawing.Size(103, 24);
+            this.comboTipo.TabIndex = 25;
+            // 
+            // Tela1_btnContorno
+            // 
+            this.Tela1_btnContorno.Location = new System.Drawing.Point(448, 299);
+            this.Tela1_btnContorno.Name = "Tela1_btnContorno";
+            this.Tela1_btnContorno.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnContorno.TabIndex = 25;
+            this.Tela1_btnContorno.Text = "Contorno";
+            this.Tela1_btnContorno.UseVisualStyleBackColor = true;
+            this.Tela1_btnContorno.Click += new System.EventHandler(this.Tela1_btnContorno_Click);
+            // 
+            // Tela1_btnFechamento
+            // 
+            this.Tela1_btnFechamento.Location = new System.Drawing.Point(448, 258);
+            this.Tela1_btnFechamento.Name = "Tela1_btnFechamento";
+            this.Tela1_btnFechamento.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnFechamento.TabIndex = 24;
+            this.Tela1_btnFechamento.Text = "Fechamento";
+            this.Tela1_btnFechamento.UseVisualStyleBackColor = true;
+            this.Tela1_btnFechamento.Click += new System.EventHandler(this.Tela1_btnFechamento_Click);
+            // 
+            // Tela1_btnAbertura
+            // 
+            this.Tela1_btnAbertura.Location = new System.Drawing.Point(448, 217);
+            this.Tela1_btnAbertura.Name = "Tela1_btnAbertura";
+            this.Tela1_btnAbertura.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnAbertura.TabIndex = 23;
+            this.Tela1_btnAbertura.Text = "Abertura";
+            this.Tela1_btnAbertura.UseVisualStyleBackColor = true;
+            this.Tela1_btnAbertura.Click += new System.EventHandler(this.Tela1_btnAbertura_Click);
+            // 
+            // Tela1_btnDilatacao
+            // 
+            this.Tela1_btnDilatacao.Location = new System.Drawing.Point(448, 176);
+            this.Tela1_btnDilatacao.Name = "Tela1_btnDilatacao";
+            this.Tela1_btnDilatacao.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnDilatacao.TabIndex = 22;
+            this.Tela1_btnDilatacao.Text = "Dilatação";
+            this.Tela1_btnDilatacao.UseVisualStyleBackColor = true;
+            this.Tela1_btnDilatacao.Click += new System.EventHandler(this.Tela1_btnDilatacao_Click);
+            // 
+            // Tela1_btnErosao
+            // 
+            this.Tela1_btnErosao.Location = new System.Drawing.Point(448, 135);
+            this.Tela1_btnErosao.Name = "Tela1_btnErosao";
+            this.Tela1_btnErosao.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnErosao.TabIndex = 21;
+            this.Tela1_btnErosao.Text = "Erosão";
+            this.Tela1_btnErosao.UseVisualStyleBackColor = true;
+            this.Tela1_btnErosao.Click += new System.EventHandler(this.Tela1_btnErosao_Click);
             // 
             // panel3
             // 
@@ -1017,78 +1092,6 @@
             this.label9.Size = new System.Drawing.Size(54, 16);
             this.label9.TabIndex = 19;
             this.label9.Text = "Entrada";
-            // 
-            // Tela1_btnErosao
-            // 
-            this.Tela1_btnErosao.Location = new System.Drawing.Point(448, 135);
-            this.Tela1_btnErosao.Name = "Tela1_btnErosao";
-            this.Tela1_btnErosao.Size = new System.Drawing.Size(192, 35);
-            this.Tela1_btnErosao.TabIndex = 21;
-            this.Tela1_btnErosao.Text = "Erosão";
-            this.Tela1_btnErosao.UseVisualStyleBackColor = true;
-            this.Tela1_btnErosao.Click += new System.EventHandler(this.Tela1_btnErosao_Click);
-            // 
-            // Tela1_btnDilatacao
-            // 
-            this.Tela1_btnDilatacao.Location = new System.Drawing.Point(448, 176);
-            this.Tela1_btnDilatacao.Name = "Tela1_btnDilatacao";
-            this.Tela1_btnDilatacao.Size = new System.Drawing.Size(192, 35);
-            this.Tela1_btnDilatacao.TabIndex = 22;
-            this.Tela1_btnDilatacao.Text = "Dilatação";
-            this.Tela1_btnDilatacao.UseVisualStyleBackColor = true;
-            this.Tela1_btnDilatacao.Click += new System.EventHandler(this.Tela1_btnDilatacao_Click);
-            // 
-            // Tela1_btnAbertura
-            // 
-            this.Tela1_btnAbertura.Location = new System.Drawing.Point(448, 217);
-            this.Tela1_btnAbertura.Name = "Tela1_btnAbertura";
-            this.Tela1_btnAbertura.Size = new System.Drawing.Size(192, 35);
-            this.Tela1_btnAbertura.TabIndex = 23;
-            this.Tela1_btnAbertura.Text = "Abertura";
-            this.Tela1_btnAbertura.UseVisualStyleBackColor = true;
-            // 
-            // Tela1_btnFechamento
-            // 
-            this.Tela1_btnFechamento.Location = new System.Drawing.Point(448, 258);
-            this.Tela1_btnFechamento.Name = "Tela1_btnFechamento";
-            this.Tela1_btnFechamento.Size = new System.Drawing.Size(192, 35);
-            this.Tela1_btnFechamento.TabIndex = 24;
-            this.Tela1_btnFechamento.Text = "Fechamento";
-            this.Tela1_btnFechamento.UseVisualStyleBackColor = true;
-            // 
-            // Tela1_btnContorno
-            // 
-            this.Tela1_btnContorno.Location = new System.Drawing.Point(448, 299);
-            this.Tela1_btnContorno.Name = "Tela1_btnContorno";
-            this.Tela1_btnContorno.Size = new System.Drawing.Size(192, 35);
-            this.Tela1_btnContorno.TabIndex = 25;
-            this.Tela1_btnContorno.Text = "Contorno";
-            this.Tela1_btnContorno.UseVisualStyleBackColor = true;
-            // 
-            // comboTipo
-            // 
-            this.comboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboTipo.FormattingEnabled = true;
-            this.comboTipo.Items.AddRange(new object[] {
-            "Quadrado",
-            "Cruz"});
-            this.comboTipo.Location = new System.Drawing.Point(489, 70);
-            this.comboTipo.Name = "comboTipo";
-            this.comboTipo.Size = new System.Drawing.Size(103, 24);
-            this.comboTipo.TabIndex = 25;
-            // 
-            // comboTamanho
-            // 
-            this.comboTamanho.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboTamanho.FormattingEnabled = true;
-            this.comboTamanho.Items.AddRange(new object[] {
-            "3x3",
-            "5x5",
-            "7x7"});
-            this.comboTamanho.Location = new System.Drawing.Point(489, 100);
-            this.comboTamanho.Name = "comboTamanho";
-            this.comboTamanho.Size = new System.Drawing.Size(103, 24);
-            this.comboTamanho.TabIndex = 26;
             // 
             // Form1
             // 

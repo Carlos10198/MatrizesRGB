@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
@@ -189,32 +189,32 @@
             // 
             // Tela1_chartHistogramaNormal
             // 
-            chartArea1.Name = "ChartArea1";
-            this.Tela1_chartHistogramaNormal.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.Tela1_chartHistogramaNormal.Legends.Add(legend1);
+            chartArea5.Name = "ChartArea1";
+            this.Tela1_chartHistogramaNormal.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.Tela1_chartHistogramaNormal.Legends.Add(legend5);
             this.Tela1_chartHistogramaNormal.Location = new System.Drawing.Point(24, 475);
             this.Tela1_chartHistogramaNormal.Name = "Tela1_chartHistogramaNormal";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.Tela1_chartHistogramaNormal.Series.Add(series1);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.Tela1_chartHistogramaNormal.Series.Add(series5);
             this.Tela1_chartHistogramaNormal.Size = new System.Drawing.Size(792, 253);
             this.Tela1_chartHistogramaNormal.TabIndex = 23;
             this.Tela1_chartHistogramaNormal.Text = "Tela1_chartHistogramaNormal";
             // 
             // Tela1_chartHistogramaPronto
             // 
-            chartArea2.Name = "ChartArea1";
-            this.Tela1_chartHistogramaPronto.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.Tela1_chartHistogramaPronto.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.Tela1_chartHistogramaPronto.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.Tela1_chartHistogramaPronto.Legends.Add(legend6);
             this.Tela1_chartHistogramaPronto.Location = new System.Drawing.Point(850, 475);
             this.Tela1_chartHistogramaPronto.Name = "Tela1_chartHistogramaPronto";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.Tela1_chartHistogramaPronto.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.Tela1_chartHistogramaPronto.Series.Add(series6);
             this.Tela1_chartHistogramaPronto.Size = new System.Drawing.Size(792, 253);
             this.Tela1_chartHistogramaPronto.TabIndex = 22;
             this.Tela1_chartHistogramaPronto.Text = "Tela1_chartHistogramaPronto";
@@ -1026,6 +1026,7 @@
             this.Tela1_btnErosao.TabIndex = 21;
             this.Tela1_btnErosao.Text = "Erosão";
             this.Tela1_btnErosao.UseVisualStyleBackColor = true;
+            this.Tela1_btnErosao.Click += new System.EventHandler(this.Tela1_btnErosao_Click);
             // 
             // Tela1_btnDilatacao
             // 

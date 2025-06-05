@@ -982,7 +982,7 @@ namespace MatrizesRGB
                                 int py = y + j;
                                 Color cor = imagemEntrada.GetPixel(px, py);
 
-                                if (cor.R > 127 && cor.G > 127 && cor.B > 127)
+                                if (cor.R > 127 || cor.G > 127 || cor.B > 127)
                                     encontrouBranco = true;
                             }
                         }
@@ -992,7 +992,7 @@ namespace MatrizesRGB
                     else if (tipoElemento == "Cruz")
                     {
                         Color centro = imagemEntrada.GetPixel(x, y);
-                        if (centro.R > 127 && centro.G > 127 && centro.B > 127)
+                        if (centro.R > 127 || centro.G > 127 || centro.B > 127)
                         {
                             encontrouBranco = true;
                         }
@@ -1000,28 +1000,28 @@ namespace MatrizesRGB
                         for (int offset = 1; offset <= localCombo && !encontrouBranco; offset++)
                         {
                             Color cima = imagemEntrada.GetPixel(x, y - offset);
-                            if (cima.R > 127 && cima.G > 127 && cima.B > 127)
+                            if (cima.R > 127 || cima.G > 127 || cima.B > 127)
                             {
                                 encontrouBranco = true;
                                 break;
                             }
 
                             Color baixo = imagemEntrada.GetPixel(x, y + offset);
-                            if (baixo.R > 127 && baixo.G > 127 && baixo.B > 127)
+                            if (baixo.R > 127 || baixo.G > 127 || baixo.B > 127)
                             {
                                 encontrouBranco = true;
                                 break;
                             }
 
                             Color esquerda = imagemEntrada.GetPixel(x - offset, y);
-                            if (esquerda.R > 127 && esquerda.G > 127 && esquerda.B > 127)
+                            if (esquerda.R > 127 || esquerda.G > 127 || esquerda.B > 127)
                             {
                                 encontrouBranco = true;
                                 break;
                             }
 
                             Color direita = imagemEntrada.GetPixel(x + offset, y);
-                            if (direita.R > 127 && direita.G > 127 && direita.B > 127)
+                            if (direita.R > 127 || direita.G > 127 || direita.B > 127)
                             {
                                 encontrouBranco = true;
                                 break;
@@ -1031,8 +1031,96 @@ namespace MatrizesRGB
                             imagemSaida.SetPixel(x, y, Color.White);
                     }
                 }
+            }
+            pictureSaida.Image = imagemSaida;
+        }
 
-               pictureSaida.Image = imagemSaida;
+        private void Erosao(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
+        {
+            Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
+            int largura = imagemEntrada.Width;
+            int altura = imagemEntrada.Height;
+
+            Bitmap imagemSaida = new Bitmap(largura, altura);
+
+            int localCombo = valorCombo / 2;
+
+            for (int y = 0; y < altura; y++)
+                for (int x = 0; x < largura; x++)
+                    imagemSaida.SetPixel(x, y, Color.Black);
+
+            for (int y = localCombo; y < altura - localCombo; y++)
+            {
+                for (int x = localCombo; x < largura - localCombo; x++)
+                {
+                    bool encontrouPreto = false;
+
+                    if (tipoElemento == "Quadrado")
+                    {
+                        for (int j = -localCombo; j <= localCombo && !encontrouPreto; j++)
+                        {
+                            for (int i = -localCombo; i <= localCombo && !encontrouPreto; i++)
+                            {
+                                int px = x + i;
+                                int py = y + j;
+                                Color cor = imagemEntrada.GetPixel(px, py);
+
+                                if (!(cor.R > 127 && cor.G > 127 && cor.B > 127))
+                                {
+                                    encontrouPreto = true;
+                                }
+                            }
+                        }
+                        if (!encontrouPreto)
+                        {
+                            imagemSaida.SetPixel(x, y, Color.White);
+                        }
+                    }
+                    else if (tipoElemento == "Cruz")
+                    {
+                        Color centro = imagemEntrada.GetPixel(x, y);
+                        if (!(centro.R > 127 && centro.G > 127 && centro.B > 127))
+                        {
+                            encontrouPreto = true;
+                        }
+
+                        for (int offset = 1; offset <= localCombo && !encontrouPreto; offset++)
+                        {
+                            Color cima = imagemEntrada.GetPixel(x, y - offset);
+                            if (!(cima.R > 127 && cima.G > 127 && cima.B > 127))
+                            {
+                                encontrouPreto = true;
+                                break;
+                            }
+
+                            Color baixo = imagemEntrada.GetPixel(x, y + offset);
+                            if (!(baixo.R > 127 && baixo.G > 127 && baixo.B > 127))
+                            {
+                                encontrouPreto = true;
+                                break;
+                            }
+
+                            Color esquerda = imagemEntrada.GetPixel(x - offset, y);
+                            if (!(esquerda.R > 127 && esquerda.G > 127 && esquerda.B > 127))
+                            {
+                                encontrouPreto = true;
+                                break;
+                            }
+
+                            Color direita = imagemEntrada.GetPixel(x + offset, y);
+                            if (!(direita.R > 127 && direita.G > 127 && direita.B > 127))
+                            {
+                                encontrouPreto = true;
+                                break;
+                            }
+                        }
+
+                        if (!encontrouPreto)
+                            imagemSaida.SetPixel(x, y, Color.White);
+                    }
+                }
+
+                pictureSaida.Image = imagemSaida;
             }
         }
         private void Tela1_btnAddImg_Click(object sender, EventArgs e)
@@ -1253,6 +1341,26 @@ namespace MatrizesRGB
             Dilatacao(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
 
+        private void Tela1_btnErosao_Click(object sender, EventArgs e)
+        {
+            string tipoElemento = comboTipo.Text;
+            string valorCombo = comboTamanho.Text;
+
+            int valorEntrada = 3;
+            if (valorCombo == "5x5")
+            {
+                valorEntrada = 5;
+            }
+            else if (valorCombo == "7x7")
+            {
+                valorEntrada = 7;
+            }
+            else
+            {
+                valorEntrada = 3;
+            }
+            Erosao(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
+        }
         /*----------------------------------------------------------------------------------------------------------*/
 
 
@@ -1999,6 +2107,6 @@ namespace MatrizesRGB
 
         }
 
-       
+        
     }
 }

@@ -42,6 +42,8 @@
             this.Tela1_btnReset = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.Tela1_comboOrdem = new System.Windows.Forms.ComboBox();
+            this.Tela1_btnOrdem = new System.Windows.Forms.Button();
             this.Tela1_btnMediana = new System.Windows.Forms.Button();
             this.Tela1_btnGaussian = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -111,8 +113,13 @@
             this.TelaBordas_btnAdd = new System.Windows.Forms.Button();
             this.TelaBordas_pictureBoxAdd = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.Tela1_btnOrdem = new System.Windows.Forms.Button();
-            this.Tela1_comboOrdem = new System.Windows.Forms.ComboBox();
+            this.Tela1_btnErosao = new System.Windows.Forms.Button();
+            this.Tela1_btnDilatacao = new System.Windows.Forms.Button();
+            this.Tela1_btnAbertura = new System.Windows.Forms.Button();
+            this.Tela1_btnFechamento = new System.Windows.Forms.Button();
+            this.Tela1_btnContorno = new System.Windows.Forms.Button();
+            this.comboTipo = new System.Windows.Forms.ComboBox();
+            this.comboTamanho = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tela1_chartHistogramaNormal)).BeginInit();
@@ -224,6 +231,13 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.comboTamanho);
+            this.panel1.Controls.Add(this.comboTipo);
+            this.panel1.Controls.Add(this.Tela1_btnContorno);
+            this.panel1.Controls.Add(this.Tela1_btnFechamento);
+            this.panel1.Controls.Add(this.Tela1_btnAbertura);
+            this.panel1.Controls.Add(this.Tela1_btnDilatacao);
+            this.panel1.Controls.Add(this.Tela1_btnErosao);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.Tela1_btnLimiar);
             this.panel1.Controls.Add(this.Tela1_btnHistograma);
@@ -251,10 +265,32 @@
             this.panel3.Controls.Add(this.Tela1_btnMAX);
             this.panel3.Controls.Add(this.Tela1_btnMIN);
             this.panel3.Controls.Add(this.Tela1_btnMedia);
-            this.panel3.Location = new System.Drawing.Point(421, 75);
+            this.panel3.Location = new System.Drawing.Point(223, 70);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(219, 363);
             this.panel3.TabIndex = 20;
+            // 
+            // Tela1_comboOrdem
+            // 
+            this.Tela1_comboOrdem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Tela1_comboOrdem.FormattingEnabled = true;
+            this.Tela1_comboOrdem.Items.AddRange(new object[] {
+            "Mínimo",
+            "Máximo"});
+            this.Tela1_comboOrdem.Location = new System.Drawing.Point(115, 169);
+            this.Tela1_comboOrdem.Name = "Tela1_comboOrdem";
+            this.Tela1_comboOrdem.Size = new System.Drawing.Size(89, 24);
+            this.Tela1_comboOrdem.TabIndex = 24;
+            // 
+            // Tela1_btnOrdem
+            // 
+            this.Tela1_btnOrdem.Location = new System.Drawing.Point(12, 163);
+            this.Tela1_btnOrdem.Name = "Tela1_btnOrdem";
+            this.Tela1_btnOrdem.Size = new System.Drawing.Size(91, 35);
+            this.Tela1_btnOrdem.TabIndex = 23;
+            this.Tela1_btnOrdem.Text = "Ordem";
+            this.Tela1_btnOrdem.UseVisualStyleBackColor = true;
+            this.Tela1_btnOrdem.Click += new System.EventHandler(this.Tela1_btnOrdem_Click);
             // 
             // Tela1_btnMediana
             // 
@@ -321,7 +357,7 @@
             // 
             // Tela1_btnLimiar
             // 
-            this.Tela1_btnLimiar.Location = new System.Drawing.Point(17, 403);
+            this.Tela1_btnLimiar.Location = new System.Drawing.Point(12, 398);
             this.Tela1_btnLimiar.Name = "Tela1_btnLimiar";
             this.Tela1_btnLimiar.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnLimiar.TabIndex = 16;
@@ -331,7 +367,7 @@
             // 
             // Tela1_btnHistograma
             // 
-            this.Tela1_btnHistograma.Location = new System.Drawing.Point(17, 362);
+            this.Tela1_btnHistograma.Location = new System.Drawing.Point(12, 357);
             this.Tela1_btnHistograma.Name = "Tela1_btnHistograma";
             this.Tela1_btnHistograma.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnHistograma.TabIndex = 15;
@@ -341,7 +377,7 @@
             // 
             // Tela1_btnNot
             // 
-            this.Tela1_btnNot.Location = new System.Drawing.Point(17, 321);
+            this.Tela1_btnNot.Location = new System.Drawing.Point(12, 316);
             this.Tela1_btnNot.Name = "Tela1_btnNot";
             this.Tela1_btnNot.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnNot.TabIndex = 14;
@@ -351,7 +387,7 @@
             // 
             // Tela1_btnDividir
             // 
-            this.Tela1_btnDividir.Location = new System.Drawing.Point(17, 157);
+            this.Tela1_btnDividir.Location = new System.Drawing.Point(12, 152);
             this.Tela1_btnDividir.Name = "Tela1_btnDividir";
             this.Tela1_btnDividir.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnDividir.TabIndex = 13;
@@ -361,7 +397,7 @@
             // 
             // Tela1_btnMultiplicar
             // 
-            this.Tela1_btnMultiplicar.Location = new System.Drawing.Point(17, 116);
+            this.Tela1_btnMultiplicar.Location = new System.Drawing.Point(12, 111);
             this.Tela1_btnMultiplicar.Name = "Tela1_btnMultiplicar";
             this.Tela1_btnMultiplicar.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnMultiplicar.TabIndex = 12;
@@ -371,7 +407,7 @@
             // 
             // Tela1_btnHorizontal
             // 
-            this.Tela1_btnHorizontal.Location = new System.Drawing.Point(17, 239);
+            this.Tela1_btnHorizontal.Location = new System.Drawing.Point(12, 234);
             this.Tela1_btnHorizontal.Name = "Tela1_btnHorizontal";
             this.Tela1_btnHorizontal.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnHorizontal.TabIndex = 11;
@@ -381,7 +417,7 @@
             // 
             // Tela1_btnVertical
             // 
-            this.Tela1_btnVertical.Location = new System.Drawing.Point(17, 280);
+            this.Tela1_btnVertical.Location = new System.Drawing.Point(12, 275);
             this.Tela1_btnVertical.Name = "Tela1_btnVertical";
             this.Tela1_btnVertical.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnVertical.TabIndex = 10;
@@ -391,7 +427,7 @@
             // 
             // Tela1_btnCinza
             // 
-            this.Tela1_btnCinza.Location = new System.Drawing.Point(17, 198);
+            this.Tela1_btnCinza.Location = new System.Drawing.Point(12, 193);
             this.Tela1_btnCinza.Name = "Tela1_btnCinza";
             this.Tela1_btnCinza.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnCinza.TabIndex = 8;
@@ -413,7 +449,7 @@
             // 
             // Tela1_btnSomar
             // 
-            this.Tela1_btnSomar.Location = new System.Drawing.Point(17, 75);
+            this.Tela1_btnSomar.Location = new System.Drawing.Point(12, 70);
             this.Tela1_btnSomar.Name = "Tela1_btnSomar";
             this.Tela1_btnSomar.Size = new System.Drawing.Size(192, 35);
             this.Tela1_btnSomar.TabIndex = 5;
@@ -982,27 +1018,76 @@
             this.label9.TabIndex = 19;
             this.label9.Text = "Entrada";
             // 
-            // Tela1_btnOrdem
+            // Tela1_btnErosao
             // 
-            this.Tela1_btnOrdem.Location = new System.Drawing.Point(12, 163);
-            this.Tela1_btnOrdem.Name = "Tela1_btnOrdem";
-            this.Tela1_btnOrdem.Size = new System.Drawing.Size(91, 35);
-            this.Tela1_btnOrdem.TabIndex = 23;
-            this.Tela1_btnOrdem.Text = "Ordem";
-            this.Tela1_btnOrdem.UseVisualStyleBackColor = true;
-            this.Tela1_btnOrdem.Click += new System.EventHandler(this.Tela1_btnOrdem_Click);
+            this.Tela1_btnErosao.Location = new System.Drawing.Point(448, 135);
+            this.Tela1_btnErosao.Name = "Tela1_btnErosao";
+            this.Tela1_btnErosao.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnErosao.TabIndex = 21;
+            this.Tela1_btnErosao.Text = "Erosão";
+            this.Tela1_btnErosao.UseVisualStyleBackColor = true;
             // 
-            // Tela1_comboOrdem
+            // Tela1_btnDilatacao
             // 
-            this.Tela1_comboOrdem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Tela1_comboOrdem.FormattingEnabled = true;
-            this.Tela1_comboOrdem.Items.AddRange(new object[] {
-            "Mínimo",
-            "Máximo"});
-            this.Tela1_comboOrdem.Location = new System.Drawing.Point(115, 169);
-            this.Tela1_comboOrdem.Name = "Tela1_comboOrdem";
-            this.Tela1_comboOrdem.Size = new System.Drawing.Size(89, 24);
-            this.Tela1_comboOrdem.TabIndex = 24;
+            this.Tela1_btnDilatacao.Location = new System.Drawing.Point(448, 176);
+            this.Tela1_btnDilatacao.Name = "Tela1_btnDilatacao";
+            this.Tela1_btnDilatacao.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnDilatacao.TabIndex = 22;
+            this.Tela1_btnDilatacao.Text = "Dilatação";
+            this.Tela1_btnDilatacao.UseVisualStyleBackColor = true;
+            this.Tela1_btnDilatacao.Click += new System.EventHandler(this.Tela1_btnDilatacao_Click);
+            // 
+            // Tela1_btnAbertura
+            // 
+            this.Tela1_btnAbertura.Location = new System.Drawing.Point(448, 217);
+            this.Tela1_btnAbertura.Name = "Tela1_btnAbertura";
+            this.Tela1_btnAbertura.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnAbertura.TabIndex = 23;
+            this.Tela1_btnAbertura.Text = "Abertura";
+            this.Tela1_btnAbertura.UseVisualStyleBackColor = true;
+            // 
+            // Tela1_btnFechamento
+            // 
+            this.Tela1_btnFechamento.Location = new System.Drawing.Point(448, 258);
+            this.Tela1_btnFechamento.Name = "Tela1_btnFechamento";
+            this.Tela1_btnFechamento.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnFechamento.TabIndex = 24;
+            this.Tela1_btnFechamento.Text = "Fechamento";
+            this.Tela1_btnFechamento.UseVisualStyleBackColor = true;
+            // 
+            // Tela1_btnContorno
+            // 
+            this.Tela1_btnContorno.Location = new System.Drawing.Point(448, 299);
+            this.Tela1_btnContorno.Name = "Tela1_btnContorno";
+            this.Tela1_btnContorno.Size = new System.Drawing.Size(192, 35);
+            this.Tela1_btnContorno.TabIndex = 25;
+            this.Tela1_btnContorno.Text = "Contorno";
+            this.Tela1_btnContorno.UseVisualStyleBackColor = true;
+            // 
+            // comboTipo
+            // 
+            this.comboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTipo.FormattingEnabled = true;
+            this.comboTipo.Items.AddRange(new object[] {
+            "Quadrado",
+            "Cruz"});
+            this.comboTipo.Location = new System.Drawing.Point(489, 70);
+            this.comboTipo.Name = "comboTipo";
+            this.comboTipo.Size = new System.Drawing.Size(103, 24);
+            this.comboTipo.TabIndex = 25;
+            // 
+            // comboTamanho
+            // 
+            this.comboTamanho.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTamanho.FormattingEnabled = true;
+            this.comboTamanho.Items.AddRange(new object[] {
+            "3x3",
+            "5x5",
+            "7x7"});
+            this.comboTamanho.Location = new System.Drawing.Point(489, 100);
+            this.comboTamanho.Name = "comboTamanho";
+            this.comboTamanho.Size = new System.Drawing.Size(103, 24);
+            this.comboTamanho.TabIndex = 26;
             // 
             // Form1
             // 
@@ -1124,6 +1209,13 @@
         private System.Windows.Forms.Button Tela1_btnMediana;
         private System.Windows.Forms.Button Tela1_btnOrdem;
         private System.Windows.Forms.ComboBox Tela1_comboOrdem;
+        private System.Windows.Forms.Button Tela1_btnErosao;
+        private System.Windows.Forms.Button Tela1_btnContorno;
+        private System.Windows.Forms.Button Tela1_btnFechamento;
+        private System.Windows.Forms.Button Tela1_btnAbertura;
+        private System.Windows.Forms.Button Tela1_btnDilatacao;
+        private System.Windows.Forms.ComboBox comboTamanho;
+        private System.Windows.Forms.ComboBox comboTipo;
     }
 }
 

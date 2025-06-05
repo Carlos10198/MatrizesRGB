@@ -951,6 +951,90 @@ namespace MatrizesRGB
             }
             
         }
+
+        private void Dilatacao(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
+        {
+            Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
+            int largura = imagemEntrada.Width;
+            int altura = imagemEntrada.Height;
+
+            Bitmap imagemSaida = new Bitmap(largura, altura);
+
+            int localCombo = valorCombo / 2;
+
+            for (int y = 0; y < altura; y++)
+                for (int x = 0; x < largura; x++)
+                    imagemSaida.SetPixel(x, y, Color.Black);
+
+            for (int y = localCombo; y < altura - localCombo; y++)
+            {
+                for (int x = localCombo; x < largura - localCombo; x++)
+                {
+                    bool encontrouBranco = false;
+
+                    if (tipoElemento == "Quadrado")
+                    {
+                        for (int j = -localCombo; j <= localCombo && !encontrouBranco; j++)
+                        {
+                            for (int i = -localCombo; i <= localCombo && !encontrouBranco; i++)
+                            {
+                                int px = x + i;
+                                int py = y + j;
+                                Color cor = imagemEntrada.GetPixel(px, py);
+
+                                if (cor.R > 127 && cor.G > 127 && cor.B > 127)
+                                    encontrouBranco = true;
+                            }
+                        }
+                        if (encontrouBranco)
+                            imagemSaida.SetPixel(x, y, Color.White);
+                    }
+                    else if (tipoElemento == "Cruz")
+                    {
+                        Color centro = imagemEntrada.GetPixel(x, y);
+                        if (centro.R > 127 && centro.G > 127 && centro.B > 127)
+                        {
+                            encontrouBranco = true;
+                        }
+
+                        for (int offset = 1; offset <= localCombo && !encontrouBranco; offset++)
+                        {
+                            Color cima = imagemEntrada.GetPixel(x, y - offset);
+                            if (cima.R > 127 && cima.G > 127 && cima.B > 127)
+                            {
+                                encontrouBranco = true;
+                                break;
+                            }
+
+                            Color baixo = imagemEntrada.GetPixel(x, y + offset);
+                            if (baixo.R > 127 && baixo.G > 127 && baixo.B > 127)
+                            {
+                                encontrouBranco = true;
+                                break;
+                            }
+
+                            Color esquerda = imagemEntrada.GetPixel(x - offset, y);
+                            if (esquerda.R > 127 && esquerda.G > 127 && esquerda.B > 127)
+                            {
+                                encontrouBranco = true;
+                                break;
+                            }
+
+                            Color direita = imagemEntrada.GetPixel(x + offset, y);
+                            if (direita.R > 127 && direita.G > 127 && direita.B > 127)
+                            {
+                                encontrouBranco = true;
+                                break;
+                            }
+                        }
+                        if (encontrouBranco)
+                            imagemSaida.SetPixel(x, y, Color.White);
+                    }
+                }
+
+               pictureSaida.Image = imagemSaida;
+            }
+        }
         private void Tela1_btnAddImg_Click(object sender, EventArgs e)
         {
             carregarImg(Tela1_pictureBoxAdd);
@@ -1146,6 +1230,27 @@ namespace MatrizesRGB
             }
 
             Gaussian(valorCalculo, valorEntrada);
+        }
+
+        private void Tela1_btnDilatacao_Click(object sender, EventArgs e)
+        {
+            string tipoElemento = comboTipo.Text;
+            string valorCombo = comboTamanho.Text;
+
+            int valorEntrada = 3;
+            if (valorCombo == "5x5")
+            {
+                valorEntrada = 5;
+            }
+            else if (valorCombo == "7x7")
+            {
+                valorEntrada = 7;
+            }
+            else
+            {
+                valorEntrada = 3;
+            }
+            Dilatacao(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
 
         /*----------------------------------------------------------------------------------------------------------*/

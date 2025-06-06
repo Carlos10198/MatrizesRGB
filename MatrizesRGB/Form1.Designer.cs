@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
@@ -49,7 +49,6 @@
             this.Tela1_btnDilatacao = new System.Windows.Forms.Button();
             this.Tela1_btnErosao = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.Tela1_comboOrdem = new System.Windows.Forms.ComboBox();
             this.Tela1_btnOrdem = new System.Windows.Forms.Button();
             this.Tela1_btnMediana = new System.Windows.Forms.Button();
             this.Tela1_btnGaussian = new System.Windows.Forms.Button();
@@ -120,6 +119,7 @@
             this.TelaBordas_btnAdd = new System.Windows.Forms.Button();
             this.TelaBordas_pictureBoxAdd = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.Tela1_numOrdem = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Tela1_chartHistogramaNormal)).BeginInit();
@@ -145,6 +145,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TelaBordas_pictureBoxCinza)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TelaBordas_pictureBoxSaida)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TelaBordas_pictureBoxAdd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tela1_numOrdem)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -189,32 +190,32 @@
             // 
             // Tela1_chartHistogramaNormal
             // 
-            chartArea3.Name = "ChartArea1";
-            this.Tela1_chartHistogramaNormal.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.Tela1_chartHistogramaNormal.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.Tela1_chartHistogramaNormal.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.Tela1_chartHistogramaNormal.Legends.Add(legend1);
             this.Tela1_chartHistogramaNormal.Location = new System.Drawing.Point(24, 475);
             this.Tela1_chartHistogramaNormal.Name = "Tela1_chartHistogramaNormal";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.Tela1_chartHistogramaNormal.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.Tela1_chartHistogramaNormal.Series.Add(series1);
             this.Tela1_chartHistogramaNormal.Size = new System.Drawing.Size(792, 253);
             this.Tela1_chartHistogramaNormal.TabIndex = 23;
             this.Tela1_chartHistogramaNormal.Text = "Tela1_chartHistogramaNormal";
             // 
             // Tela1_chartHistogramaPronto
             // 
-            chartArea4.Name = "ChartArea1";
-            this.Tela1_chartHistogramaPronto.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.Tela1_chartHistogramaPronto.Legends.Add(legend4);
+            chartArea2.Name = "ChartArea1";
+            this.Tela1_chartHistogramaPronto.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.Tela1_chartHistogramaPronto.Legends.Add(legend2);
             this.Tela1_chartHistogramaPronto.Location = new System.Drawing.Point(850, 475);
             this.Tela1_chartHistogramaPronto.Name = "Tela1_chartHistogramaPronto";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.Tela1_chartHistogramaPronto.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.Tela1_chartHistogramaPronto.Series.Add(series2);
             this.Tela1_chartHistogramaPronto.Size = new System.Drawing.Size(792, 253);
             this.Tela1_chartHistogramaPronto.TabIndex = 22;
             this.Tela1_chartHistogramaPronto.Text = "Tela1_chartHistogramaPronto";
@@ -332,7 +333,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.Tela1_comboOrdem);
+            this.panel3.Controls.Add(this.Tela1_numOrdem);
             this.panel3.Controls.Add(this.Tela1_btnOrdem);
             this.panel3.Controls.Add(this.Tela1_btnMediana);
             this.panel3.Controls.Add(this.Tela1_btnGaussian);
@@ -344,18 +345,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(219, 363);
             this.panel3.TabIndex = 20;
-            // 
-            // Tela1_comboOrdem
-            // 
-            this.Tela1_comboOrdem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Tela1_comboOrdem.FormattingEnabled = true;
-            this.Tela1_comboOrdem.Items.AddRange(new object[] {
-            "Mínimo",
-            "Máximo"});
-            this.Tela1_comboOrdem.Location = new System.Drawing.Point(115, 169);
-            this.Tela1_comboOrdem.Name = "Tela1_comboOrdem";
-            this.Tela1_comboOrdem.Size = new System.Drawing.Size(89, 24);
-            this.Tela1_comboOrdem.TabIndex = 24;
             // 
             // Tela1_btnOrdem
             // 
@@ -1093,6 +1082,18 @@
             this.label9.TabIndex = 19;
             this.label9.Text = "Entrada";
             // 
+            // Tela1_numOrdem
+            // 
+            this.Tela1_numOrdem.Location = new System.Drawing.Point(114, 170);
+            this.Tela1_numOrdem.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.Tela1_numOrdem.Name = "Tela1_numOrdem";
+            this.Tela1_numOrdem.Size = new System.Drawing.Size(90, 22);
+            this.Tela1_numOrdem.TabIndex = 27;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1129,6 +1130,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TelaBordas_pictureBoxCinza)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TelaBordas_pictureBoxSaida)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TelaBordas_pictureBoxAdd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tela1_numOrdem)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1212,7 +1214,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button Tela1_btnMediana;
         private System.Windows.Forms.Button Tela1_btnOrdem;
-        private System.Windows.Forms.ComboBox Tela1_comboOrdem;
         private System.Windows.Forms.Button Tela1_btnErosao;
         private System.Windows.Forms.Button Tela1_btnContorno;
         private System.Windows.Forms.Button Tela1_btnFechamento;
@@ -1220,6 +1221,7 @@
         private System.Windows.Forms.Button Tela1_btnDilatacao;
         private System.Windows.Forms.ComboBox comboTamanho;
         private System.Windows.Forms.ComboBox comboTipo;
+        private System.Windows.Forms.NumericUpDown Tela1_numOrdem;
     }
 }
 

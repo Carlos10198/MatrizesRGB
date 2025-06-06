@@ -1361,18 +1361,20 @@ namespace MatrizesRGB
                 valorEntrada = 3;
             }
 
-            int totalElementos = valorEntrada * valorEntrada;
-            string tipoOrdem = Tela1_comboOrdem.Text;
-            int ordem = totalElementos / 2;
+            int ordem;
+            if (!int.TryParse(Tela1_numOrdem.Text, out ordem))
+            {
+                MessageBox.Show("Digite um número válido para a ordem.");
+                return;
+            }
 
-            if (tipoOrdem == "Mínimo")
+            int totalElementos = valorEntrada * valorEntrada;
+            if (ordem < 0 || ordem >= totalElementos)
             {
-                ordem = 0;
+                MessageBox.Show($"A ordem deve estar entre 0 e {totalElementos - 1}.");
+                return;
             }
-            else if (tipoOrdem == "Máximo")
-            {
-                ordem = totalElementos - 1;
-            }
+
 
             Ordem(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, valorEntrada, ordem);
         }

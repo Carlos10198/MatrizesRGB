@@ -893,10 +893,135 @@ namespace MatrizesRGB
 
             pictureSaida.Image = pictureS;
         }
+
+        private void SuavizacaoConservativa(PictureBox pictureEntrada, PictureBox pictureSaida, int valorCombo)
+        {
+            Bitmap pictureE = new Bitmap(pictureEntrada.Image);
+            int largura = pictureE.Width;
+            int altura = pictureE.Height;
+
+            Bitmap pictureS = new Bitmap(largura, altura);
+            int localCombo = valorCombo / 2;
+            int tamanhoJanela = valorCombo * valorCombo;
+
+            for (int y = localCombo; y < altura - localCombo; y++)
+            {
+                for (int x = localCombo; x < largura - localCombo; x++)
+                {
+                    byte[] valoresR = new byte[tamanhoJanela];
+                    byte[] valoresG = new byte[tamanhoJanela];
+                    byte[] valoresB = new byte[tamanhoJanela];
+
+                    int index = 0;
+
+                    for (int i = -localCombo; i <= localCombo; i++)
+                    {
+                        for (int j = -localCombo; j <= localCombo; j++)
+                        {
+                            int px = x + i;
+                            int py = y + j;
+
+                            if (px >= 0 && px < largura && py >= 0 && py < altura)
+                            {
+                                if (i != 0 || j != 0)
+                                {
+                                    Color pixel = pictureE.GetPixel(px, py);
+                                    valoresR[index] = pixel.R;
+                                    valoresG[index] = pixel.G;
+                                    valoresB[index] = pixel.B;
+                                    index++;
+                                }
+                            }
+                        }
+                    }
+
+                    Array.Resize(ref valoresR, index);
+                    Array.Resize(ref valoresG, index);
+                    Array.Resize(ref valoresB, index);
+
+
+                    byte menorR = valoresR[0], maiorR = valoresR[0];
+                    byte menorG = valoresG[0], maiorG = valoresG[0];
+                    byte menorB = valoresB[0], maiorB = valoresB[0];
+
+                    for (int k = 1; k < index; k++)
+                    {
+                        if (valoresR[k] < menorR) menorR = valoresR[k];
+                        if (valoresR[k] > maiorR) maiorR = valoresR[k];
+
+                        if (valoresG[k] < menorG) menorG = valoresG[k];
+                        if (valoresG[k] > maiorG) maiorG = valoresG[k];
+
+                        if (valoresB[k] < menorB) menorB = valoresB[k];
+                        if (valoresB[k] > maiorB) maiorB = valoresB[k];
+                    }
+
+                    
+                    Color centro = pictureE.GetPixel(x, y);
+                    byte novoR = centro.R;
+                    byte novoG = centro.G;
+                    byte novoB = centro.B;
+
+                    
+                    if (centro.R < menorR) novoR = menorR;
+                    else if (centro.R > maiorR) novoR = maiorR;
+
+                    if (centro.G < menorG) novoG = menorG;
+                    else if (centro.G > maiorG) novoG = maiorG;
+
+                    if (centro.B < menorB) novoB = menorB;
+                    else if (centro.B > maiorB) novoB = maiorB;
+
+                    pictureS.SetPixel(x, y, Color.FromArgb(novoR, novoG, novoB));
+                }
+            }
+
+            pictureSaida.Image = pictureS;
+        }
         private double FormGaussian(double x1, double y2, double entrada)
         {
             return (1.0 / (2.0 * Math.PI * Math.Pow(entrada, 2.0)) * Math.Exp(-(Math.Pow(x1, 2.0) + Math.Pow(y2, 2.0)) / (2.0 * Math.Pow(entrada, 2.0))));
         }
+
+        private void SalvarKernelComoImagem(double[,] kernel, string caminhoArquivo, int zoom = 40)
+        {
+            int altura = kernel.GetLength(0);
+            int largura = kernel.GetLength(1);
+
+            double min = kernel[0, 0], max = kernel[0, 0];
+            for (int y = 0; y < altura; y++)
+                for (int x = 0; x < largura; x++)
+                {
+                    if (kernel[y, x] < min) min = kernel[y, x];
+                    if (kernel[y, x] > max) max = kernel[y, x];
+                }
+
+            Bitmap bmp = new Bitmap(largura * zoom, altura * zoom);
+
+            for (int y = 0; y < altura; y++)
+            {
+                for (int x = 0; x < largura; x++)
+                {
+                    double normalizado = (kernel[y, x] - min) / (max - min);
+                    int cor = (int)(normalizado * 255);
+                    Color corPixel = Color.FromArgb(cor, cor, cor);
+
+                    // Replicar o pixel para formar o "zoom"
+                    for (int dy = 0; dy < zoom; dy++)
+                    {
+                        for (int dx = 0; dx < zoom; dx++)
+                        {
+                            bmp.SetPixel(x * zoom + dx, y * zoom + dy, corPixel);
+                        }
+                    }
+                }
+            }
+
+            bmp.Save(caminhoArquivo, System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+
+
 
         private void Gaussian(double valorCalculo, int valorEntrada)
         {
@@ -904,7 +1029,6 @@ namespace MatrizesRGB
             int offset = valorEntrada / 2;
             double sum = 0.0;
 
-            // Gerar e somar os valores do kernel
             for (int y = -offset; y <= offset; y++)
             {
                 for (int x = -offset; x <= offset; x++)
@@ -913,14 +1037,12 @@ namespace MatrizesRGB
                     kernel[y + offset, x + offset] = valor;
                     sum += valor;
 
-                    // Imprimir coordenadas e valor
                     Console.WriteLine($"({x},{y}) = {valor:F6}");
                 }
             }
 
             Console.WriteLine($"\nSoma total antes da normalização: {sum:F6}");
 
-            // Normalizar o kernel
             for (int i = 0; i < valorEntrada; i++)
             {
                 for (int j = 0; j < valorEntrada; j++)
@@ -929,7 +1051,6 @@ namespace MatrizesRGB
                 }
             }
 
-            // Soma dos valores já normalizados
             double sumNormalizado = 0.0;
             for (int i = 0; i < valorEntrada; i++)
             {
@@ -941,7 +1062,6 @@ namespace MatrizesRGB
 
             Console.WriteLine($"\nSoma após normalização: {sumNormalizado:F6}");
 
-            // Aplicar o filtro na imagem
 
             Bitmap pictureE = new Bitmap(Tela1_pictureBoxAdd.Image);
             Bitmap pictureS = new Bitmap(pictureE.Width, pictureE.Height);
@@ -963,7 +1083,6 @@ namespace MatrizesRGB
                             novoB += pixel.B * kernel[j + offset, i + offset];
                         }
                     }
-                    // Limitar os valores entre 0 e 255
                     novoR = Math.Max(0, Math.Min(255, novoR));
                     novoG = Math.Max(0, Math.Min(255, novoG));
                     novoB = Math.Max(0, Math.Min(255, novoB));
@@ -972,31 +1091,8 @@ namespace MatrizesRGB
             }
             Tela1_pictureBoxSaida.Image = pictureS;
 
-            // Exibir o kernel no console
-            Console.WriteLine("\nKernel:");
-            for (int i = 0; i < valorEntrada; i++)
-            {
-                for (int j = 0; j < valorEntrada; j++)
-                {
-                    Console.Write($"{kernel[i, j]:F6} ");
-                }
-                Console.WriteLine();
-            }
+            SalvarKernelComoImagem(kernel, @"C:\Users\cadue\Documents\Facul\ProcessamentoImagens\kernel.png");
 
-            // Exibir a soma total do kernel
-            Console.WriteLine($"\nSoma total do kernel: {sum:F6}");
-
-            // Exibir imagem do Kernel
-            Bitmap kernelImage = new Bitmap(valorEntrada, valorEntrada);
-            for (int i = 0; i < valorEntrada; i++)
-            {
-                for (int j = 0; j < valorEntrada; j++)
-                {
-                    int pixelValue = (int)(kernel[i, j] * 255);
-                    kernelImage.SetPixel(i, j, Color.FromArgb(pixelValue, pixelValue, pixelValue));
-                }
-            }
-            
         }
 
         private Bitmap Dilatacao(Bitmap imagemEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
@@ -1381,7 +1477,13 @@ namespace MatrizesRGB
         private void Tela1_btnGaussian_Click(object sender, EventArgs e)
         {
             string valorCombo = comboBox1.Text;
-            double valorCalculo = (double)Tela1_numEntrada.Value;
+            int valorCalculo;
+            if (!int.TryParse(Tela1_numGau.Text, out valorCalculo))
+            {
+                MessageBox.Show("Digite um número válido para o valor de cálculo.");
+                return;
+            }
+
             int valorEntrada = 3;
             if (valorCombo == "5x5")
             {
@@ -1507,6 +1609,27 @@ namespace MatrizesRGB
                 valorEntrada = 3;
             }
             Contorno(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
+        }
+
+        private void Tela1_btnSuavConser_Click(object sender, EventArgs e)
+        {
+            Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
+            string valorCombo = comboTamanho.Text;
+
+            int valorEntrada = 3;
+            if (valorCombo == "5x5")
+            {
+                valorEntrada = 5;
+            }
+            else if (valorCombo == "7x7")
+            {
+                valorEntrada = 7;
+            }
+            else
+            {
+                valorEntrada = 3;
+            }
+            SuavizacaoConservativa(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, valorEntrada);
         }
         /*----------------------------------------------------------------------------------------------------------*/
 
@@ -2254,6 +2377,6 @@ namespace MatrizesRGB
 
         }
 
-        
+       
     }
 }

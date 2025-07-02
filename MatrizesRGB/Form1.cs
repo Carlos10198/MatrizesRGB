@@ -322,6 +322,16 @@ namespace MatrizesRGB
             }
         }
 
+        private void LimparChart(Chart chart1, Chart chart2)
+        {
+            chart1.Series.Clear();
+            chart1.ChartAreas.Clear();
+            chart1.Titles.Clear();
+            chart2.Series.Clear();
+            chart2.ChartAreas.Clear();
+            chart2.Titles.Clear();
+        }
+
         private void Tela1_btnReset_Click(object sender, EventArgs e)
         {
             ClearPictureBoxOriginal(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, pictureBox1);
@@ -514,19 +524,18 @@ namespace MatrizesRGB
             }
 
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
+            Bitmap img2 = new Bitmap(pictureE.Width, pictureE.Height);
 
             for (int i = 0; i < pictureE.Width; i++)
             {
                 for (int j = 0; j < pictureE.Height; j++)
                 {
-                    Color pixel = pictureE.GetPixel(i, j);
                     Color invert = pictureE.GetPixel(pictureE.Width - i - 1, j);
 
-                    Color cor = Color.FromArgb(255, invert);
-
-                    img2.SetPixel(i, j, cor);
+                    img2.SetPixel(i, j, invert);
                 }
             }
+
             pictureSaida.Image = img2;
         }
 
@@ -536,22 +545,21 @@ namespace MatrizesRGB
             {
                 MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-
             }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
+            Bitmap img2 = new Bitmap(pictureE.Width, pictureE.Height);
 
             for (int i = 0; i < pictureE.Width; i++)
             {
                 for (int j = 0; j < pictureE.Height; j++)
                 {
-                    Color pixel = pictureE.GetPixel(i, j);
                     Color inverterVertical = pictureE.GetPixel(i, pictureE.Height - j - 1);
 
-                    Color cor = Color.FromArgb(255, inverterVertical);
-
-                    img2.SetPixel(i, j, cor);
+                    img2.SetPixel(i, j, inverterVertical);
                 }
             }
+
             pictureSaida.Image = img2;
         }
 
@@ -685,7 +693,7 @@ namespace MatrizesRGB
             histoSaida.ChartAreas[0].AxisY.Interval = 500;
         }
 
-        private void limiar(PictureBox pictureEntrada, PictureBox pictureSaida)
+        private void limiar(PictureBox pictureEntrada, PictureBox pictureSaida, int limiar)
         {
             if (pictureEntrada.Image == null)
             {
@@ -694,13 +702,15 @@ namespace MatrizesRGB
             }
 
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
-            int limiar = 128;
+            Bitmap img2 = new Bitmap(pictureE.Width, pictureE.Height);
+
             for (int i = 0; i < pictureE.Width; i++)
             {
                 for (int j = 0; j < pictureE.Height; j++)
                 {
                     Color pixel = pictureE.GetPixel(i, j);
                     int cinza = (pixel.R + pixel.G + pixel.B) / 3;
+
                     if (cinza > limiar)
                     {
                         img2.SetPixel(i, j, Color.White);
@@ -1527,33 +1537,19 @@ namespace MatrizesRGB
         }
         private void Tela1_btnLimiar_Click(object sender, EventArgs e)
         {
-            limiar(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida);
+            int limiarValor = (int)Tela1_numEntrada.Value;
+            limiar(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, limiarValor);
         }
 
         private void Tela1_btnMAX_Click(object sender, EventArgs e)
         {
-            string valorCombo = comboBox1.Text;
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
-            {
-                valorEntrada = 5;
-            }
-            else if (valorCombo == "7x7")
-            {
-                valorEntrada = 7;
-            } else
+            int valorEntrada;
+            string valorCombo = comboBoxTamanho2.Text;
+            if (valorCombo == "3x3")
             {
                 valorEntrada = 3;
             }
-
-                max(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, valorEntrada);
-        }
-
-        private void Tela1_btnMIN_Click(object sender, EventArgs e)
-        {
-            string valorCombo = comboBox1.Text;
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1563,7 +1559,33 @@ namespace MatrizesRGB
             }
             else
             {
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            max(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, valorEntrada);
+        }
+
+        private void Tela1_btnMIN_Click(object sender, EventArgs e)
+        {
+            int valorEntrada;
+            string valorCombo = comboBoxTamanho2.Text;
+            if (valorCombo == "3x3")
+            {
                 valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
+            {
+                valorEntrada = 5;
+            }
+            else if (valorCombo == "7x7")
+            {
+                valorEntrada = 7;
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             min(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, valorEntrada);
@@ -1571,9 +1593,13 @@ namespace MatrizesRGB
 
         private void Tela1_btnMedia_Click(object sender, EventArgs e)
         {
-            string valorCombo = comboBox1.Text;
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            int valorEntrada;
+            string valorCombo = comboBoxTamanho2.Text;
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1583,16 +1609,21 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             mean(Tela1_pictureBoxAdd, ref Tela1_pictureBoxSaida, valorEntrada);
         }
         private void Tela1_btnMediana_Click(object sender, EventArgs e)
         {
-            string valorCombo = comboBox1.Text;
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            int valorEntrada;
+            string valorCombo = comboBoxTamanho2.Text;
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1602,7 +1633,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             mediana(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, valorEntrada);
@@ -1610,9 +1642,13 @@ namespace MatrizesRGB
 
         private void Tela1_btnOrdem_Click(object sender, EventArgs e)
         {
-            string valorCombo = comboBox1.Text;
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            int valorEntrada;
+            string valorCombo = comboBoxTamanho2.Text;
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1622,7 +1658,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             int ordem;
@@ -1644,7 +1681,6 @@ namespace MatrizesRGB
         }
         private void Tela1_btnGaussian_Click(object sender, EventArgs e)
         {
-            string valorCombo = comboBox1.Text;
             int valorCalculo;
             if (!int.TryParse(Tela1_numGau.Text, out valorCalculo))
             {
@@ -1652,8 +1688,13 @@ namespace MatrizesRGB
                 return;
             }
 
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            int valorEntrada;
+            string valorCombo = comboBoxTamanho2.Text;
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1663,9 +1704,9 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-
             Gaussian(valorCalculo, valorEntrada);
         }
 
@@ -1679,10 +1720,20 @@ namespace MatrizesRGB
 
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
-            string valorCombo = comboTamanho.Text;
+            if (string.IsNullOrWhiteSpace(comboTipo.Text))
+            {
+                MessageBox.Show("Por favor, selecione o tipo do elemento estruturante.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            string valorCombo = comboTamanho.Text;
+            int valorEntrada;
+
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1692,7 +1743,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             Dilatacao(imagemEntrada, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
@@ -1707,10 +1759,20 @@ namespace MatrizesRGB
 
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
-            string valorCombo = comboTamanho.Text;
+            if (string.IsNullOrWhiteSpace(comboTipo.Text))
+            {
+                MessageBox.Show("Por favor, selecione o tipo do elemento estruturante.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            string valorCombo = comboTamanho.Text;
+            int valorEntrada;
+
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1720,7 +1782,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             Erosao(imagemEntrada, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
@@ -1735,10 +1798,20 @@ namespace MatrizesRGB
 
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
-            string valorCombo = comboTamanho.Text;
+            if (string.IsNullOrWhiteSpace(comboTipo.Text))
+            {
+                MessageBox.Show("Por favor, selecione o tipo do elemento estruturante.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            string valorCombo = comboTamanho.Text;
+            int valorEntrada;
+
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1748,7 +1821,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             Abertura(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
@@ -1763,10 +1837,20 @@ namespace MatrizesRGB
 
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
-            string valorCombo = comboTamanho.Text;
+            if (string.IsNullOrWhiteSpace(comboTipo.Text))
+            {
+                MessageBox.Show("Por favor, selecione o tipo do elemento estruturante.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            string valorCombo = comboTamanho.Text;
+            int valorEntrada;
+
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1776,7 +1860,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             Fechamento(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
@@ -1791,10 +1876,20 @@ namespace MatrizesRGB
 
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
-            string valorCombo = comboTamanho.Text;
+            if (string.IsNullOrWhiteSpace(comboTipo.Text))
+            {
+                MessageBox.Show("Por favor, selecione o tipo do elemento estruturante.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            string valorCombo = comboTamanho.Text;
+            int valorEntrada;
+
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1804,7 +1899,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             Contorno(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, tipoElemento, valorEntrada);
         }
@@ -1818,10 +1914,13 @@ namespace MatrizesRGB
             }
 
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
-            string valorCombo = comboTamanho.Text;
-
-            int valorEntrada = 3;
-            if (valorCombo == "5x5")
+            int valorEntrada;
+            string valorCombo = comboBoxTamanho2.Text;
+            if (valorCombo == "3x3")
+            {
+                valorEntrada = 3;
+            }
+            else if (valorCombo == "5x5")
             {
                 valorEntrada = 5;
             }
@@ -1831,7 +1930,8 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Por favor, selecione um tamanho válido: 3x3, 5x5 ou 7x7.", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             SuavizacaoConservativa(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, valorEntrada);
         }
@@ -1842,7 +1942,7 @@ namespace MatrizesRGB
 
         private void blending(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -1851,7 +1951,7 @@ namespace MatrizesRGB
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
-            float entrada = (float)Tela2_valorEntrada.Value;
+            float entrada = (float)Tela2_valorEntrada.Value / 100f;
 
             if (imgA.Width != imgB.Width || imgA.Height != imgB.Height)
             {
@@ -1897,7 +1997,7 @@ namespace MatrizesRGB
 
         private void media(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -1944,7 +2044,7 @@ namespace MatrizesRGB
         }
         private void diferImg(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaidaC, PictureBox pictureSaidaD, PictureBox pictureSaidaE)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -2068,7 +2168,7 @@ namespace MatrizesRGB
 
         private void And(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -2103,7 +2203,7 @@ namespace MatrizesRGB
 
         private void Or(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -2138,7 +2238,7 @@ namespace MatrizesRGB
 
         private void Xor(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -2173,7 +2273,7 @@ namespace MatrizesRGB
 
         private void multiplicar2Img(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -2214,7 +2314,7 @@ namespace MatrizesRGB
 
         private void dividir2Img(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
-            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            if (pictureEntradaA.Image == null || pictureEntradaB.Image == null)
             {
                 MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -2639,11 +2739,22 @@ namespace MatrizesRGB
             }
             else
             {
-                valorEntrada = 3;
+                MessageBox.Show("Selecione um tipo de detecção de bordas válido (Normal ou Agressiva).", "Entrada inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             laplaciano(TelaBordas_pictureBoxAdd, TelaBordas_pictureBoxCinza, TelaBordas_pictureBoxRuido, TelaBordas_pictureBoxHorizontal, TelaBordas_pictureBoxVertical, TelaBordas_pictureBoxSaida, valorEntrada);
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ClearPictureBoxOriginal(Tela2_PictureBoxC, Tela2_PictureBoxD, Tela2_PictureBoxE);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            LimparChart(Tela1_chartHistogramaNormal, Tela1_chartHistogramaPronto);
         }
     }
 }

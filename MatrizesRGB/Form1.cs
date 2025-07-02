@@ -44,6 +44,11 @@ namespace MatrizesRGB
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Bitmap imgA = new Bitmap(pictureBoxA.Image);
             Bitmap imgB = new Bitmap(pictureBoxB.Image);
 
@@ -93,6 +98,12 @@ namespace MatrizesRGB
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureBoxA.Image);
             Bitmap imgB = new Bitmap(pictureBoxB.Image);
 
@@ -146,6 +157,12 @@ namespace MatrizesRGB
 
         private Bitmap subtrair(Bitmap imagemEntrada, Bitmap imagemSaida)
         {
+            if (imagemEntrada == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
             Bitmap imgA = new Bitmap(imagemEntrada);
             Bitmap imgB = new Bitmap(imagemSaida);
 
@@ -272,7 +289,7 @@ namespace MatrizesRGB
 
                     try
                     {
-                        pictureBoxSaida1.Image.Save(saveFileDialog.FileName, formato);
+                        pictureBox.Image.Save(saveFileDialog.FileName, formato);
                         MessageBox.Show("Imagem salva com sucesso em:\n" + saveFileDialog.FileName, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
@@ -286,9 +303,37 @@ namespace MatrizesRGB
                 MessageBox.Show("Nenhuma imagem para salvar!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void ClearPictureBoxOriginal(PictureBox pictureBox1, PictureBox pictureBox2, PictureBox pictureBox3)
+        {
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
+            if (pictureBox2.Image != null)
+            {
+                pictureBox2.Image.Dispose();
+                pictureBox2.Image = null;
+            }
+            if (pictureBox3.Image != null)
+            {
+                pictureBox3.Image.Dispose();
+                pictureBox3.Image = null;
+            }
+        }
 
+        private void Tela1_btnReset_Click(object sender, EventArgs e)
+        {
+            ClearPictureBoxOriginal(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, pictureBox1);
+        }
         private void subtrairImg(PictureBox pictureEntrada, PictureBox pictureSaida, int valorEntrada)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
 
             for (int i = 0; i < pictureE.Width; i++)
@@ -327,6 +372,12 @@ namespace MatrizesRGB
 
         private void somarImg(PictureBox pictureEntrada, PictureBox pictureSaida, int valorEntrada)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
 
             for (int i = 0; i < pictureE.Width; i++)
@@ -358,6 +409,12 @@ namespace MatrizesRGB
 
         private void multiplicarImg(PictureBox pictureEntrada, PictureBox pictureSaida, float valorEntrada)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             for (int i = 0; i < pictureE.Width; i++)
             {
@@ -388,6 +445,12 @@ namespace MatrizesRGB
 
         private void dividirImg(PictureBox pictureEntrada, PictureBox pictureSaida, float valorEntrada)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             for (int i = 0; i < pictureE.Width; i++)
             {
@@ -418,6 +481,12 @@ namespace MatrizesRGB
 
         private void escalaCinza(PictureBox pictureEntrada, PictureBox pictureSaida)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             Bitmap img2 = new Bitmap(pictureE.Width, pictureE.Height);
 
@@ -438,6 +507,12 @@ namespace MatrizesRGB
 
         private void inverterHorizontal(PictureBox pictureEntrada, PictureBox pictureSaida)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
 
             for (int i = 0; i < pictureE.Width; i++)
@@ -457,6 +532,12 @@ namespace MatrizesRGB
 
         private void inverterVertical(PictureBox pictureEntrada, PictureBox pictureSaida)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+
+            }
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
 
             for (int i = 0; i < pictureE.Width; i++)
@@ -476,6 +557,12 @@ namespace MatrizesRGB
 
         public void not(PictureBox pictureEntrada, PictureBox pictureSaida)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+
+            }
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             for (int i = 0; i < pictureE.Width; i++)
             {
@@ -494,6 +581,12 @@ namespace MatrizesRGB
 
         private void equalizacaoHistograma(PictureBox pictureEntrada, PictureBox pictureSaida, Chart histoSaida, Chart histoOrig)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
 
             int[] histogramaImagem = new int[256];
@@ -594,6 +687,12 @@ namespace MatrizesRGB
 
         private void limiar(PictureBox pictureEntrada, PictureBox pictureSaida)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             int limiar = 128;
             for (int i = 0; i < pictureE.Width; i++)
@@ -617,6 +716,12 @@ namespace MatrizesRGB
 
         private void max(PictureBox pictureEntrada, PictureBox pictureSaida, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             int largura = pictureE.Width;
             int altura = pictureE.Height;
@@ -680,6 +785,12 @@ namespace MatrizesRGB
 
         private void min(PictureBox pictureEntrada, PictureBox pictureSaida, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             int largura = pictureE.Width;
             int altura = pictureE.Height;
@@ -743,6 +854,12 @@ namespace MatrizesRGB
 
         private void mean(PictureBox pictureEntrada, ref PictureBox pictureSaida, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = (Bitmap)pictureEntrada.Image;
             Bitmap pictureS = new Bitmap(pictureE.Width, pictureE.Height);
             int offset = valorCombo / 2;
@@ -778,6 +895,12 @@ namespace MatrizesRGB
 
         private void mediana(PictureBox pictureEntrada, PictureBox pictureSaida, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             int largura = pictureE.Width;
             int altura = pictureE.Height;
@@ -836,6 +959,12 @@ namespace MatrizesRGB
 
         private void Ordem(PictureBox pictureEntrada, PictureBox pictureSaida, int valorCombo, int ordem)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             int largura = pictureE.Width;
             int altura = pictureE.Height;
@@ -896,6 +1025,12 @@ namespace MatrizesRGB
 
         private void SuavizacaoConservativa(PictureBox pictureEntrada, PictureBox pictureSaida, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap pictureE = new Bitmap(pictureEntrada.Image);
             int largura = pictureE.Width;
             int altura = pictureE.Height;
@@ -1062,7 +1197,11 @@ namespace MatrizesRGB
 
             Console.WriteLine($"\nSoma após normalização: {sumNormalizado:F6}");
 
-
+            if (Tela1_pictureBoxAdd.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Bitmap pictureE = new Bitmap(Tela1_pictureBoxAdd.Image);
             Bitmap pictureS = new Bitmap(pictureE.Width, pictureE.Height);
             int localCombo = valorEntrada / 2;
@@ -1097,6 +1236,12 @@ namespace MatrizesRGB
 
         private Bitmap Dilatacao(Bitmap imagemEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
         {
+            if (imagemEntrada == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
             int largura = imagemEntrada.Width;
             int altura = imagemEntrada.Height;
 
@@ -1180,7 +1325,12 @@ namespace MatrizesRGB
 
         private Bitmap Erosao(Bitmap imagemEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
         {
-            
+            if (imagemEntrada == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
             int largura = imagemEntrada.Width;
             int altura = imagemEntrada.Height;
 
@@ -1269,6 +1419,12 @@ namespace MatrizesRGB
 
         private void Abertura(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
 
             Bitmap imagemErosao = Erosao(imagemEntrada, pictureSaida, tipoElemento, valorCombo);
@@ -1279,6 +1435,12 @@ namespace MatrizesRGB
 
         private void Fechamento(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
 
             Bitmap imagemDilatacao = Dilatacao(imagemEntrada, pictureSaida, tipoElemento, valorCombo);
@@ -1289,6 +1451,12 @@ namespace MatrizesRGB
 
         private void Contorno(PictureBox pictureEntrada, PictureBox pictureSaida, string tipoElemento, int valorCombo)
         {
+            if (pictureEntrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(pictureEntrada.Image);
 
             Bitmap imagemErosao = Erosao(imagemEntrada, pictureSaida, tipoElemento, valorCombo);
@@ -1301,7 +1469,7 @@ namespace MatrizesRGB
             carregarImg(Tela1_pictureBoxAdd);
         }
 
-        private void Tela1_btnSubtrair_Click(object sender, EventArgs e)
+        private void Tela1_btnSubtrair_Click_1(object sender, EventArgs e)
         {
             subtrairImg(Tela1_pictureBoxAdd, Tela1_pictureBoxSaida, (int)Tela1_numEntrada.Value);
         }
@@ -1503,6 +1671,12 @@ namespace MatrizesRGB
 
         private void Tela1_btnDilatacao_Click(object sender, EventArgs e)
         {
+            if (Tela1_pictureBoxAdd.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
             string valorCombo = comboTamanho.Text;
@@ -1525,6 +1699,12 @@ namespace MatrizesRGB
 
         private void Tela1_btnErosao_Click(object sender, EventArgs e)
         {
+            if (Tela1_pictureBoxAdd.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
             string valorCombo = comboTamanho.Text;
@@ -1547,6 +1727,12 @@ namespace MatrizesRGB
 
         private void Tela1_btnAbertura_Click(object sender, EventArgs e)
         {
+            if (Tela1_pictureBoxAdd.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
             string valorCombo = comboTamanho.Text;
@@ -1569,6 +1755,12 @@ namespace MatrizesRGB
 
         private void Tela1_btnFechamento_Click(object sender, EventArgs e)
         {
+            if (Tela1_pictureBoxAdd.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
             string valorCombo = comboTamanho.Text;
@@ -1591,6 +1783,12 @@ namespace MatrizesRGB
 
         private void Tela1_btnContorno_Click(object sender, EventArgs e)
         {
+            if (Tela1_pictureBoxAdd.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string tipoElemento = comboTipo.Text;
             string valorCombo = comboTamanho.Text;
@@ -1613,6 +1811,12 @@ namespace MatrizesRGB
 
         private void Tela1_btnSuavConser_Click(object sender, EventArgs e)
         {
+            if (Tela1_pictureBoxAdd.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imagemEntrada = new Bitmap(Tela1_pictureBoxAdd.Image);
             string valorCombo = comboTamanho.Text;
 
@@ -1638,6 +1842,12 @@ namespace MatrizesRGB
 
         private void blending(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -1687,6 +1897,12 @@ namespace MatrizesRGB
 
         private void media(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -1728,6 +1944,11 @@ namespace MatrizesRGB
         }
         private void diferImg(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaidaC, PictureBox pictureSaidaD, PictureBox pictureSaidaE)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -1847,6 +2068,12 @@ namespace MatrizesRGB
 
         private void And(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -1876,6 +2103,12 @@ namespace MatrizesRGB
 
         private void Or(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -1905,6 +2138,12 @@ namespace MatrizesRGB
 
         private void Xor(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -1934,6 +2173,12 @@ namespace MatrizesRGB
 
         private void multiplicar2Img(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -1969,6 +2214,12 @@ namespace MatrizesRGB
 
         private void dividir2Img(PictureBox pictureEntradaA, PictureBox pictureEntradaB, PictureBox pictureSaida)
         {
+            if (pictureBoxA.Image == null || pictureBoxB.Image == null)
+            {
+                MessageBox.Show("Carregue as imagens A e B antes de realizar a operação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Bitmap imgA = new Bitmap(pictureEntradaA.Image);
             Bitmap imgB = new Bitmap(pictureEntradaB.Image);
             Bitmap imgC = new Bitmap(imgA.Width, imgA.Height);
@@ -2074,6 +2325,12 @@ namespace MatrizesRGB
 
         private void prewitt(PictureBox Entrada, PictureBox SaidaCinza, PictureBox SaidaRuido, PictureBox SaidaHorizontal, PictureBox SaidaVertical, PictureBox SaidaFinal)
         {
+            if (Entrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int entrada = 3;
             escalaCinza(Entrada, SaidaCinza);
             mean(SaidaCinza, ref SaidaRuido, entrada);
@@ -2156,6 +2413,12 @@ namespace MatrizesRGB
 
         private void sobel(PictureBox Entrada, PictureBox SaidaCinza, PictureBox SaidaRuido, PictureBox SaidaHorizontal, PictureBox SaidaVertical, PictureBox SaidaFinal)
         {
+            if (Entrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int entrada = 3;
             escalaCinza(Entrada, SaidaCinza);
             mean(SaidaCinza, ref SaidaRuido, entrada);
@@ -2237,6 +2500,12 @@ namespace MatrizesRGB
 
         private void laplaciano(PictureBox Entrada, PictureBox SaidaCinza, PictureBox SaidaRuido, PictureBox SaidaHorizontal, PictureBox SaidaVertical, PictureBox SaidaFinal,  int valorCombo)
         {
+            if (Entrada.Image == null)
+            {
+                MessageBox.Show("Nenhuma imagem carregada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             SaidaHorizontal.Image = null;
             SaidaVertical.Image = null;
 
@@ -2376,7 +2645,5 @@ namespace MatrizesRGB
             laplaciano(TelaBordas_pictureBoxAdd, TelaBordas_pictureBoxCinza, TelaBordas_pictureBoxRuido, TelaBordas_pictureBoxHorizontal, TelaBordas_pictureBoxVertical, TelaBordas_pictureBoxSaida, valorEntrada);
 
         }
-
-       
     }
 }
